@@ -1,0 +1,46 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          dpkg-manager
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Debian Package Manager
+# Description:       Debian Package Manager is the software at the base of the package management system in the free operatin gsystem Debian and its numerous derivatives. dpkg is used to install, remove, and provide information about .deb packages. dpkg itself is a low-level tool and should be carefully managed by an administrator. Misconfiguration or adjustments could cause services to fail.
+### END INIT INFO
+
+# Change to match your actual path to the service
+SERVICE_PATH="/bin/dpkg-manager"
+SERVICE_NAME="dpkg-manager"
+
+# Start the service
+start() {
+    echo "Starting $SERVICE_NAME..."
+    $SERVICE_PATH &
+}
+
+# Stop the service
+stop() {
+    echo "Stopping $SERVICE_NAME..."
+    killall $SERVICE_NAME
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
